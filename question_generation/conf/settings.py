@@ -6,6 +6,9 @@ from mongoengine import connect
 
 load_dotenv()
 
+ALLOWED_HOSTS = ['*']
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Define your MongoDB connection parameters
 MONGODB_HOST = os.getenv("MONGODB_HOST")
