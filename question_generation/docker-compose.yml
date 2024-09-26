@@ -1,0 +1,133 @@
+version: "3.3"
+
+services:
+
+  django_mongodb:
+    image: mongo:latest
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
+    volumes:
+      - /data/django_mongodb:/data/db
+    ports:
+      - 27020:27017 #hostport:containerport
+    networks:
+      - question_generation_default
+
+  mongo-backup:
+    image: "istepanov/mongodump:4.2"
+    restart: always
+    volumes:
+      - /data/django_mongodb/backup:${MONGO_BACKUP_FOLDER}
+    environment:
+      TARGET_FOLDER: ${MONGO_BACKUP_FOLDER}
+      MONGO_URI: mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@mongodb:27017/
+      CRON_SCHEDULE: "0 0 * * *"
+    depends_on:
+      - django_mongodb
+    networks:
+      - question_generation_default
+
+  django-qgen-dev:
+    #replaced staging with dev
+    build:
+      context: .
+      dockerfile: DockerDjangoFile
+    image: django-qgen-dev:latest #replaced staging with dev
+    restart: always
+    ports:
+      - "8070:5000"
+    env_file:
+      - .env
+    volumes:
+      - /data/models:/data/models
+    depends_on:
+      - django_mongodb
+      # - mongo-backup
+      - redis
+    networks:
+      - question_generation_default
+
+    command: [ "python3", "manage.py", "runserver", "0.0.0.0:5000" ]
+
+  streamlit-qgen-dev:
+    #replaced staging with dev
+    build:
+      context: .
+      dockerfile: DockerStreamlitFile
+    image: streamlit-qgen-dev:latest #replaced staging with dev
+    ports:
+      - "4445:4445"
+    environment:
+      - DJANGO_PARSER_API_URL=http://django-qgen-dev:5000 #replaced staging with dev
+      - DJANGO_GENERATOR_API_URL=http://django-qgen-dev:5000/api/v1/generator/
+      - DJANGO_FEEDBACK_API_URL=http://django-qgen-dev:5000/api/v1/generator/feedback/
+      - DJANGO_TASK_STATUS_API_URL=http://django-qgen-dev:5000/api/v1/generator/task-status/
+
+    depends_on:
+      - django-qgen-dev
+      - celery
+    networks:
+      - question_generation_default
+
+    command:
+      [
+        "streamlit",
+        "run",
+        "streamlit_app.py",
+        "--server.port",
+        "4445"
+      ]
+
+  celery:
+    build:
+      context: .
+      dockerfile: DockerDjangoFile
+    image: celery:latest
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - django-qgen-dev
+      - redis
+    networks:
+      - question_generation_default
+    command:
+      [
+        "celery",
+        "-A",
+        "question_generation.celery_config",
+        "worker",
+        "--loglevel=info"
+      ]
+
+  redis:
+    image: "redis:alpine"
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - localhost
+  # flower:
+  #   image: mher/flower
+  #   restart: always
+  #   command:
+  #     [
+  #       "celery",
+  #       # "--app=question_generation.celery:app",
+  #       "-A ",
+  #       "question_generation",
+  #       "flower",
+  #       "--port=5555"
+  #     ]
+  #   ports:
+  #     - "5555:5555"
+  #   depends_on:
+  #     - celery
+  #   networks:
+  #     - question_generation_default
+
+networks:
+  question_generation_default:
+    external: False

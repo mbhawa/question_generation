@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Generator Input Form</title>
+</head>
+<body>
+    <h2>Generator Input Form</h2>
+    <form method="post">
+        <div>
+            <h3>User ID</h3>
+            <label for="{{ form.user_id.id_for_label }}">{{ form.user_id.label }}</label>
+            {{ form.user_id }}
+            {{ form.user_id.errors }}
+        </div>
+        <div>
+            <h3>Input type</h3>
+            <label for="{{ form.input_type.id_for_label }}">{{ form.input_type.label }}</label>
+            {{ form.input_type }}
+            {{ form.input_type.errors }}
+        </div>
+        <div>
+            <h3>Input name</h3>
+            <label for="{{ form.input_name.id_for_label }}">{{ form.input_name.label }}</label>
+            {{ form.input_name }}
+            {{ form.input_name.errors }}
+        </div>
+        <div>
+            <h3>Query ID</h3>
+            <label for="{{ form.query_id.id_for_label }}">{{ form.query_id.label }}</label>
+            {{ form.query_id }}
+            {{ form.query_id.errors }}
+        </div>
+        <div>
+            <h3>Model Name</h3>
+            <label for="{{ form.model_name.id_for_label }}">{{ form.model_name.label }}</label>
+            {{ form.model_name }}
+            {{ form.model_name.errors }}
+        </div>
+        <div>
+            <h3>SOLO Taxonomy</h3>
+            <label for="{{ form.solo_taxonomy.id_for_label }}">{{ form.solo_taxonomy.label }}</label>
+            {{ form.solo_taxonomy }}
+            {{ form.solo_taxonomy.errors }}
+        </div>
+        <div>
+            <h3>Question Types</h3>
+            <label for="{{ form.question_types.id_for_label }}">{{ form.question_types.label }}</label>
+            {{ form.question_types }}
+            {{ form.question_types.errors }}
+        </div>
+        <div>
+            <h3>Data SHA Key</h3>
+            <label for="{{ form.data_sha_key.id_for_label }}">{{ form.data_sha_key.label }}</label>
+            {{ form.data_sha_key }}
+            {{ form.data_sha_key.errors }}
+        </div>
+        <div>
+            <h3>Number of Questions</h3>
+            <label for="{{ form.number_of_questions.id_for_label }}">{{ form.number_of_questions.label }}</label>
+            {{ form.number_of_questions }}
+            {{ form.number_of_questions.errors }}
+        </div>
+        <div>
+            <h3>Selected Topics</h3>
+            <label for="{{ form.selected_topics.id_for_label }}">{{ form.selected_topics.label }}</label>
+            {{ form.selected_topics }}
+            {{ form.selected_topics.errors }}
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

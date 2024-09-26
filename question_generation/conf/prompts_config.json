@@ -1,0 +1,58 @@
+{
+  "question_types": [
+    "True or False",
+    "Fill in the Blanks",
+    "Match the columns",
+    "Assertion-Reasoning",
+    "Sequence Questions",
+    "Sentence Completion",
+    "Error Identification",
+    "Analogy Completion",
+    "Critical Thinking",
+    "Pattern Recognition",
+    "Cause and Effect",
+    "Code Correction",
+    "Code Snippet"
+
+  ],
+  "solo_taxonomy": [
+    "Prestructural",
+    "Unistructural",
+    "Multistructural",
+    "Relational",
+    "Extended Abstract"
+  ],
+  "difficulty": [
+    "custom",
+    "Beginner",
+    "Intermediate",
+    "Advanced",
+    "Mixed"
+  ],
+  "output_format": {
+    "questions": [
+      {
+        "question": "<Question>",
+        "options": {
+          "option_a": "<Option A>",
+          "option_b": "<Option B>",
+          "option_c": "<Option C>",
+          "option_d": "<Option D>"
+        },
+        "correct_option": "<Correct option key ex: option_a>",
+        "correct_option_explanation": "<Validate your correct response>",
+        "solo_category": "<SOLO Taxonomy category>",
+        "question_type": "<Type of question>",
+        "question_difficulty": "<Beginner, Intermediate or Advanced>"
+      }
+    ],
+    "total_questions": "<Total Questions generated>",
+    "difficulty_distribution": {
+      "Beginner": "<Number of Beginner questions>",
+      "Intermediate": "<Number of Intermediate questions>",
+      "Advanced": "<Number of Advanced questions>"
+    }
+  },
+  "SystemMessageTemplateVersion": "v1",
+  "HumanMessageTemplateVersion": "v1"
+}

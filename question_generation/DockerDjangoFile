@@ -1,0 +1,31 @@
+FROM ubuntu:22.04
+WORKDIR /home/appuser
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+RUN apt update
+RUN apt upgrade -y
+RUN apt install curl -y
+
+RUN apt install python3 python3-pip -y
+# RUN pip3 install --upgrade pip
+
+RUN apt install -y poppler-utils
+# Install antiword cli tool to parse .doc files
+RUN apt install -y antiword
+# Install ffmpeg
+RUN apt update && apt install -y ffmpeg
+
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+COPY . .
+
+RUN chmod +x entry.sh
+
+RUN ./entry.sh
+
+
+# ENTRYPOINT ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", "8300","--reload"]

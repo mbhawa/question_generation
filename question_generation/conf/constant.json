@@ -1,0 +1,54 @@
+{
+  "supported_media_format": [
+    ".mp3",
+    ".mp4",
+    ".mpeg",
+    ".mpga",
+    ".m4a",
+    ".wav",
+    ".webm"
+  ],
+  "models": {
+    "gpt": [
+      "gpt-4o",
+      "gpt-4o-mini",
+      "gpt-3.5-turbo"
+    ]
+  },
+  "pricing": {
+    "input": {
+      "gpt-4o": 5.0,
+      "gpt-3.5-turbo": 0.5,
+      "gpt-4o-mini": 0.15
+    },
+    "output": {
+      "gpt-4o": 15.0,
+      "gpt-3.5-turbo": 1.5,
+      "gpt-4o-mini": 0.60
+    }
+  },
+  "audio_formats": [
+    ".mp3",
+    ".wav"
+  ],
+  "video_formats": [
+    ".mp4",
+    ".mpeg",
+    ".mpga",
+    ".m4a",
+    ".webm"
+  ],
+  "document_formats": [
+    ".docx",
+    ".doc",
+    ".txt"
+  ],
+  "max_text_length": 3000,
+  "min_text_length": 100,
+  "audio_split_size": 20,
+  "audio_buffer_size": 0,
+  "chunk_size": 5000,
+  "chunk_overlap": 1000,
+  "paragraph_size": 10000,
+  "paragraph_overlap": 1000
+}

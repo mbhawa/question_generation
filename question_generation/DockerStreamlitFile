@@ -1,0 +1,40 @@
+# # Use Alpine Linux as the base image
+# FROM python:3.9-alpine
+
+# # Set the working directory in the container
+# WORKDIR /home/appuser
+
+# # Copy the dependencies file to the working directory
+# COPY streamlit_requirements.txt .
+
+# # Install dependencies
+# # RUN pip install --no-cache-dir -r requirements.txt
+# RUN pip install -r streamlit_requirements.txt
+
+
+# # Copy the content of the local src directory to the working directory
+# COPY . .
+FROM ubuntu:22.04
+WORKDIR /home/appuser
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+RUN apt update
+RUN apt upgrade -y
+RUN apt install curl -y
+
+RUN apt install python3 python3-pip -y
+RUN pip3 install --upgrade pip
+
+# RUN apt install -y poppler-utils
+# # Install antiword cli tool to parse .doc files
+# RUN apt install -y antiword
+# # Install ffmpeg
+# RUN apt-get update && apt-get install -y ffmpeg
+
+COPY streamlit_utils/streamlit_requirements.txt .
+RUN pip3 install -r streamlit_requirements.txt
+
+COPY . .
