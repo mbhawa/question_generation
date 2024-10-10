@@ -194,9 +194,7 @@ def hit_parser_api(
 ):
 
     # django_parser_url = "http://localhost:8070"  # os.getenv("DJANGO_API_URL", default="http://localhost:8070")
-    django_parser_url = os.getenv(
-        "DJANGO_PARSER_API_URL", default="http://localhost:8070"
-    )
+    django_parser_url = "https://questiongeneration-7z5edbs8b6mndukev8lwny.streamlit.app"
 
     base_url = django_parser_url
     url = base_url + end_point
@@ -260,9 +258,7 @@ def hit_generator_api(
     selected_topics: List,
 ):
 
-    url = os.getenv(
-        "DJANGO_GENERATOR_API_URL", default="http://localhost:8070/api/v1/generator/"
-    )
+    url = "https://questiongeneration-7z5edbs8b6mndukev8lwny.streamlit.app/api/v1/generator/"
 
     # if input_type == "PDF Upload":
     #     # Define the data to be sent
@@ -310,10 +306,7 @@ def get_uploader_and_endpoint(input_type: str):
 
 def hit_feedback_api(query_id: str, user_feedback: int):
 
-    url = os.getenv(
-        "DJANGO_FEEDBACK_API_URL",
-        default="http://localhost:8070/api/v1/generator/feedback/",
-    )
+    url = "https://questiongeneration-7z5edbs8b6mndukev8lwny.streamlit.app/api/v1/generator/feedback/"
 
     data = {
         "query_id": str(query_id),
@@ -325,10 +318,7 @@ def hit_feedback_api(query_id: str, user_feedback: int):
 
 
 def get_task_status(task_id: str):
-    url = os.getenv(
-        "DJANGO_TASK_STATUS_API_URL",
-        default="http://localhost:8070/api/v1/generator/task-status/",
-    )
+    url = "https://questiongeneration-7z5edbs8b6mndukev8lwny.streamlit.app/api/v1/generator/task-status/"
 
     response = requests.post(url + task_id + "/")
     # print(response)
